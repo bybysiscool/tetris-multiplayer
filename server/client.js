@@ -3,7 +3,6 @@ class Client {
         this.conn = conn;
         this.id = id;
         this.session = null;
-
         this.state = null;
     }
 
@@ -29,6 +28,13 @@ class Client {
             if (err) {
                 console.error("Message failed.", msg, err);
             }
+        });
+    }
+
+    clearLine(lineIndex) {
+        this.broadcast({
+            type: 'lineClear',
+            lineIndex: lineIndex
         });
     }
 }
