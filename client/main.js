@@ -26,7 +26,7 @@ localTetris.element.classList.add("local");
 localTetris.run();
 
 const connectionManager = new ConnectionManager(tetrisManager);
-connectionManager.connect("ws://retrotube.info/ws");
+connectionManager.connect("wss://retrotube.info/ws");
 
 const keyListener = event => {
     [
