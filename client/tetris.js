@@ -5,8 +5,6 @@ class Tetris {
         this.context = this.canvas.getContext("2d");
         this.context.scale(20, 20);
 
-        // Show the next block coming into the game.
-
         this.arena = new Arena(12, 20);
         this.player = new Player(this);
 
@@ -22,7 +20,8 @@ class Tetris {
             "#F538FF",
             "#FF8E0D",
             "#FFE138",
-            "#3877FF"
+            "#3877FF",
+            "#808080" // Grey for line clears
         ];
 
         let lastTime = 0;
@@ -31,7 +30,6 @@ class Tetris {
             lastTime = time;
 
             this.player.update(deltaTime);
-
             this.draw();
             requestAnimationFrame(this._update);
         };
@@ -51,7 +49,7 @@ class Tetris {
         matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
-                    this.context.fillStyle = this.colors[value];
+                    this.context.fillStyle = this.colors[value] || "#808080"; // Grey for line clears
                     this.context.fillRect(x + offset.x, y + offset.y, 1, 1);
                 }
             });
@@ -84,5 +82,11 @@ class Tetris {
 
     updateScore(score) {
         this.element.querySelector(".score").innerText = score;
+    }
+
+    clearLine(lineIndex) {
+        // Simulate the defensive mechanism of clearing a line for the opponent
+        this.arena.matrix[lineIndex] = new Array(this.arena.matrix[0].length).fill(8); // 8 = grey color
+        this.draw();
     }
 }
