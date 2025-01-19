@@ -85,8 +85,10 @@ class Tetris {
     }
 
     clearLine(lineIndex) {
-        // Simulate the defensive mechanism of clearing a line for the opponent
-        this.arena.matrix[lineIndex] = new Array(this.arena.matrix[0].length).fill(8); // 8 = grey color
+        // Leave one empty spot to challenge the player
+        let randomEmptySpot = Math.floor(Math.random() * this.arena.matrix[0].length);
+        this.arena.matrix[lineIndex] = new Array(this.arena.matrix[0].length).fill(8); // Fill with grey
+        this.arena.matrix[lineIndex][randomEmptySpot] = 0; // Leave one spot open for easier clearing
         this.draw();
     }
 }
